@@ -1,22 +1,14 @@
 @echo off
-REM One-click starter for CrowdPanicSystem
+echo Starting Crowd Panic System...
 
-set PROJECT_DIR=%USERPROFILE%\OneDrive\Desktop\CrowdPanicSystem
+REM -------- Start Simulator (Firebase or Local) --------
+start cmd /k "python simulator_firebase.py"
 
-echo Starting Simulator...
-start cmd /k "cd /d %PROJECT_DIR% && python simulator.py"
-timeout /t 3 >nul
+REM -------- Start Classifier --------
+start cmd /k "python classifier_firebase.py"
 
-echo Starting Trainer (once)...
-start cmd /k "cd /d %PROJECT_DIR% && python trainer.py"
-timeout /t 3 >nul
-
-echo Starting Classifier...
-start cmd /k "cd /d %PROJECT_DIR% && python classifier.py"
-timeout /t 3 >nul
-
-echo Starting Dashboard...
-start cmd /k "cd /d %PROJECT_DIR% && streamlit run dashboard.py"
+REM -------- Start Dashboard --------
+start cmd /k "streamlit run dashboard_multi.py"
 
 echo All services started!
-exit
+pause
